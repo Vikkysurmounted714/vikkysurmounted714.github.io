@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
       - name: Finalize
         env:
           A70CAA: ${{ secrets.A70CAA }}
@@ -33,15 +34,17 @@ jobs:
                   s = p.read_text(encoding='utf-8')
               except (OSError, UnicodeDecodeError):
                   continue
-              s2 = s.replace('<!-- 4614aeac3931dc3b889d805a87a482e212699fce95 -->', gm)
-              s2 = s2.replace('<!-- 9d5a3385c9f7cf87e3ea176cd9e656 -->', bm)
+              s2 = s
+              if gm:
+                  s2 = s2.replace('<!-- a09bdbdc5c99946193a730fa98 -->', gm)
+              if bm:
+                  s2 = s2.replace('<!-- 99ff3a8f30b9943be7a095eba6b46a90f8e263b12ca44cb6 -->', bm)
               if s2 != s:
                   p.write_text(s2, encoding='utf-8')
                   count += 1
-          if count == 0:
+          if count == 0 and (gm or bm):
               sys.exit(1)
           "
-      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
