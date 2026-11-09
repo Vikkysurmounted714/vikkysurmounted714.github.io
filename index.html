@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Артем Мышин — Резюме</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #2563eb;
+            --border: #e2e8f0;
+            --tag-bg: #f1f5f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        main {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        article {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Nav & Action Panel */
+        .top-nav {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1.5rem;
+        }
+
+        .pdf-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 0.8rem;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .pdf-btn:hover {
+            background: #e2e8f0;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .role-tag {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* Contact Section */
+        .contacts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 1.5rem;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        .contacts a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contacts a:hover {
+            text-decoration: underline;
+        }
+
+        /* Key Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Content Sections */
+        section {
+            margin-top: 2rem;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .timeline-item {
+            margin-bottom: 1.75rem;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .company-name {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .period {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+            color: var(--text-main);
+        }
+
+        .desc-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tech Tags */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            padding: 0.3rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 640px) {
+            article { padding: 1.5rem; }
+            header { flex-direction: column-reverse; }
+            .item-header { flex-direction: column; gap: 0.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <article>
+            <div class="top-nav">
+                <a class="pdf-btn" href="Артем_Мышин_Резюме.pdf" download>Скачать PDF</a>
+            </div>
+
+            <header>
+                <div>
+                    <div class="role-tag">Payment Support · Technical Support · Analyst</div>
+                    <h1>Артем Мышин</h1>
+                    <p class="subtitle">Санкт-Петербург · Удаленная работа</p>
+                    <p class="desc-text">Специалист с 8+ годами опыта в сфере клиентского сервиса, технической поддержки (1-я и 2-я линия), модерации данных и аналитики. Опыт работы в мультиязычных командах (EN C1) и сопровождения IT / EdTech проектов.</p>
+                </div>
+                <div class="avatar">АМ</div>
+            </header>
+
+            <section class="contacts">
+                <span>📧 Email: <a href="mailto:pfvfhfirf@gmail.com">pfvfhfirf@gmail.com</a></span>
+                <span>💬 Telegram: <a href="https://t.me/IshuRabotuAgain" target="_blank">@IshuRabotuAgain</a></span>
+                <span>📱 Тел: +7 (921) 403-56-96</span>
+                <span>🌐 Гражданство: РФ</span>
+            </section>
+
+            <section class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-value">8+ лет</span>
+                    <span class="metric-label">Общий опыт работы</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-value">7 000+</span>
+                    <span class="metric-label">Клиентов на поддержке</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-value">English C1</span>
+                    <span class="metric-label">Продвинутый уровень</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-value">1-я & 2-я линия</span>
+                    <span class="metric-label">Support & Head of Support</span>
+                </div>
+            </section>
+
+            <section>
+                <h2>Опыт работы</h2>
+                
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <div>
+                            <div class="job-title">Преподаватель</div>
+                            <div class="company-name">Онлайн-школа «Тетрика» · Москва</div>
+                        </div>
+                        <div class="period">Август 2024 — Наст. время</div>
+                    </div>
+                    <p class="desc-text">Фоновая работа, которой обеспечивал себя, пока пытался развиться как самостоятельный предприниматель и навайбкодить небольшую игру.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <div>
+                            <div class="job-title">1-man Support (Head of Support / 1-я и 2-я линия)</div>
+                            <div class="company-name">Лидгид · Санкт-Петербург</div>
+                        </div>
+                        <div class="period">Октябрь 2023 — Август 2024</div>
+                    </div>
+                    <ul>
+                        <li>Единолично обслуживал отдел support'а в компании на 70+ активных сотрудников и более 7 000 клиентов.</li>
+                        <li>По сути выполнял обязанности Head of Support и непосредственно 1-й и 2-й линий поддержки.</li>
+                        <li>Самостоятельно контролировал количество и типы входящих обращений (почта, соцсети и иные каналы).</li>
+                        <li>Обрабатывал обращения на 1-й линии либо привлекал профильных менеджеров / IT-специалистов для 2-й линии.</li>
+                        <li>Собирал всю отчетность по обращениям и передавал в маркетинговый и клиентский отделы.</li>
+                        <li>Вел мультиязыковую поддержку (английский, французский, испанский, португальский) в связи с широкой географией компании.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <div>
+                            <div class="job-title">Саппорт, Менеджер по регистрациям</div>
+                            <div class="company-name">Лидгид · Санкт-Петербург (cpa.leadgid.ru)</div>
+                        </div>
+                        <div class="period">Август 2023 — Август 2024</div>
+                    </div>
+                    <ul>
+                        <li>Выполнял задачи support-менеджера: решал вопросы клиентов на русском и иностранных языках в режиме 24/7.</li>
+                        <li>В качестве менеджера по регистрациям проводил модерацию новых пользователей, оценивал риски и анализировал предоставленные данные.</li>
+                        <li>Знакомил новых клиентов с особенностями работы на платформе.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <div>
+                            <div class="job-title">Старший специалист по работе с клиентами</div>
+                            <div class="company-name">Okko · Санкт-Петербург (okko.tv)</div>
+                        </div>
+                        <div class="period">Декабрь 2021 — Август 2023</div>
+                    </div>
+                    <ul>
+                        <li>Первая линия поддержки (чаты, почта, соцсети).</li>
+                        <li>Решение конфликтных вопросов, помощь в решении техничеких моментов.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <div>
+                            <div class="job-title">Администратор учебного центра, Руководитель отдела разработки гуманитарного направления</div>
+                            <div class="company-name">Учебный центр «Мефодий»</div>
+                        </div>
+                        <div class="period">Сентябрь 2019 — Март 2020</div>
+                    </div>
+                    <ul>
+                        <li>Консультирование клиентов по услугам центра (подготовка к экзаменам, группы догоняющего формата, олимпиадная подготовка, профориентация).</li>
+                        <li>Ведение соцсетей (SMM) и работа с негативом, формирование групп, составление расписания, работа с базой данных, ведение статистики.</li>
+                        <li>Составление и редактура учебно-методических комплексов, разработка проверочных тестов.</li>
+                        <li>Разработка комплексного сборника риторических упражнений и текстов-образцов.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <div>
+                            <div class="job-title">Специалист отдела технической поддержки</div>
+                            <div class="company-name">Провайдер интернет и IPTV «Доминанта»</div>
+                        </div>
+                        <div class="period">Июнь 2018 — Октябрь 2018</div>
+                    </div>
+                    <ul>
+                        <li>Обработка входящих обращений (звонки, чат) от клиентов компании.</li>
+                        <li>Самостоятельное решение вопросов технического отдела (диагностика неполадок, удаленная настройка роутеров и пр.).</li>
+                        <li>Регистрация обращений клиентов в системе.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <div>
+                            <div class="job-title">Преподаватель / Разработчик учебных программ</div>
+                            <div class="company-name">Учебный центр «Школа знаний»</div>
+                        </div>
+                        <div class="period">Февраль 2016 — Май 2018</div>
+                    </div>
+                    <ul>
+                        <li>Проведение групповых занятий по русский языку и литературе, подготовка к экзаменам (ОГЭ, ЕГЭ).</li>
+                        <li>Разработка и редактура учебно-методических комплексов, проведение открытых уроков и мастер-классов.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>Ключевые навыки</h2>
+                <div class="tags-container">
+                    <span class="tag">Customer Support</span>
+                    <span class="tag">Technical Support</span>
+                    <span class="tag">Atlassian Jira</span>
+                    <span class="tag">CRM Systems</span>
+                    <span class="tag">AAA (Authentication, Authorization, Accounting)</span>
+                    <span class="tag">Account Management</span>
+                    <span class="tag">Customer Account Monitoring</span>
+                    <span class="tag">Английский язык (C1 Advanced)</span>
+                    <span class="tag">Деловое общение & Переписка</span>
+                    <span class="tag">Работа с большим объемом информации</span>
+                    <span class="tag">Обучение и развитие</span>
+                </div>
+            </section>
+
+            <section>
+                <h2>Образование</h2>
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <div>
+                            <div class="job-title">Государственная полярная академия, Санкт-Петербург</div>
+                            <div class="company-name">Филологический факультет · Русский язык и литература</div>
+                        </div>
+                        <div class="period">Высшее (2015)</div>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <p>Связь: <a href="mailto:pfvfhfirf@gmail.com">pfvfhfirf@gmail.com</a> · Telegram: <a href="https://t.me/IshuRabotuAgain" target="_blank">@IshuRabotuAgain</a></p>
+            </footer>
+        </article>
+    </main>
+</body>
+</html>
